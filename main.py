@@ -16,6 +16,13 @@ LINE = (
 )
 
 
+# The competition caps the entry at 200 characters. Guard the limit at
+# import time so a future edit to LINE fails loudly instead of silently
+# producing an over-length entry.
+MAX_CHARS = 200
+assert len(LINE) <= MAX_CHARS, f"line is {len(LINE)} chars, limit is {MAX_CHARS}"
+
+
 def main() -> None:
     output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(output_dir, exist_ok=True)
